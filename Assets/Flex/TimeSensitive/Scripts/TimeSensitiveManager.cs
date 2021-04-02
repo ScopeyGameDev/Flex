@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeSensitiveManager : MonoBehaviour
+namespace Flex.TimeSensitive
 {
-    // Start is called before the first frame update
-    void Start()
+    public class TimeSensitiveManager : MonoBehaviour
     {
-        
-    }
+        [SerializeField] List<TimeSensitiveGame> TimeSensitiveGames;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] Transform ContentTransform;
+
+        [SerializeField] TimeSensitiveContent TimeSensitiveContent;
+
+        void Start() 
+        {
+            foreach (TimeSensitiveGame Game in TimeSensitiveGames)
+            {
+                TimeSensitiveContent CreatedTimeSensitiveContent = Instantiate(TimeSensitiveContent, ContentTransform);
+                CreatedTimeSensitiveContent.Create(Game);
+            }
+        }
     }
 }
