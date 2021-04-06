@@ -16,23 +16,30 @@ namespace Flex.TimeSensitive
         [SerializeField] RectTransform ParentTransform;
         [SerializeField] Image GameLogoImage;
         [SerializeField] TMP_Text GameTitleText;
+        [SerializeField] Button GameButton;
 
-        internal void Create(TimeSensitiveGame NewTimeSensitiveGame)
+        void Start() 
         {
+            GameButton.onClick.AddListener(delegate {TimeSensitiveManager.GameSelected(TimeSensitiveGame);});
+        }
+
+        internal void Create(TimeSensitiveGame NewTimeSensitiveGame, TimeSensitiveManager NewTimeSensitiveManager)
+        {
+            TimeSensitiveManager = NewTimeSensitiveManager;
             TimeSensitiveGame = NewTimeSensitiveGame;
             GameLogoImage.sprite = TimeSensitiveGame.GameLogo;
             GameTitleText.text = TimeSensitiveGame.GameTitle;
 
-            foreach(TimeSensitiveActivity Activity in TimeSensitiveGame.TimeSensitiveActivities)
+            foreach(TimeSensitiveActivityPref Activity in TimeSensitiveGame.TimeSensitiveActivities)
             {
                 CreateActivity(Activity);
             }
         }
 
-        void CreateActivity(TimeSensitiveActivity Activity)
+        void CreateActivity(TimeSensitiveActivityPref Activity)
         {
             TimeSensitiveContentActivity CreatedTimeSensitiveActivity = Instantiate(TimeSensitiveContentActivity, ContentTransform);
-            CreatedTimeSensitiveActivity.Create(Activity);
+            CreatedTimeSensitiveActivity.Create(Activity, false);
 
             float Offset = 90;
             if (Activity.ActivityType == ActivityType.Battlepass)

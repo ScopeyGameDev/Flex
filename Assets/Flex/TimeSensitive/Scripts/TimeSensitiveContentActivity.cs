@@ -8,16 +8,17 @@ namespace Flex.TimeSensitive
 {
     public class TimeSensitiveContentActivity : MonoBehaviour
     {
-        TimeSensitiveActivity TimeSensitiveActivity;
+        TimeSensitiveActivityPref TimeSensitiveActivity;
         [SerializeField] TMP_Text ActivityTitleText;
         [SerializeField] TMP_Text ActivityTimeLeftText;
         [SerializeField] GameObject BattlepassPanel;
+        [SerializeField] Button ActivityButton;
 
-        internal void Create(TimeSensitiveActivity NewTimeSensitiveActivity)
+        internal void Create(TimeSensitiveActivityPref NewTimeSensitiveActivity, bool ShowAdditionalInformation)
         {
             TimeSensitiveActivity = NewTimeSensitiveActivity;
             ActivityTitleText.text = TimeSensitiveActivity.ActivityTitle;
-
+            
             string TimeTypeText = "";
             switch (TimeSensitiveActivity.TimeType)
             {
@@ -47,8 +48,9 @@ namespace Flex.TimeSensitive
             if(TimeSensitiveActivity.ActivityType == ActivityType.Battlepass)
             {
                 ActivityTitleText.text = TimeSensitiveActivity.ActivityTitle + " " + TimeSensitiveActivity.Battlepass.x + "/" + TimeSensitiveActivity.Battlepass.y;
-
-                GetComponent<RectTransform>().sizeDelta = new Vector2(GetComponent<RectTransform>().rect.width, 145);
+                
+                RectTransform Rect = GetComponent<RectTransform>();
+                Rect.sizeDelta = new Vector2(Rect.rect.width, 145);
                 BattlepassPanel.SetActive(true);
                 for (int i = 0; i < TimeSensitiveActivity.Battlepass.y; i++)
                 {
@@ -61,6 +63,13 @@ namespace Flex.TimeSensitive
                         SectionImage.color = Color.red;
                 }
             }
+
+            if (ShowAdditionalInformation)
+            {
+                ActivityButton.enabled = true;
+                ActivityButton.onClick.AddListener(delegate {FindObjectOfType<TimeSensitiveManager>().ShowActivityInformation(TimeSensitiveActivity);});
+            }
+            
         }
     }
 }

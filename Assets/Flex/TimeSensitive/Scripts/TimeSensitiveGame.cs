@@ -8,7 +8,7 @@ namespace Flex.TimeSensitive
     enum TimeType { Hour, Day, Week };
 
     [System.Serializable]
-    internal class TimeSensitiveActivity
+    internal class TimeSensitiveActivityPref
     {
         [SerializeField] internal string ActivityTitle;
         [SerializeField] internal ActivityType ActivityType;
@@ -23,6 +23,6 @@ namespace Flex.TimeSensitive
     {
         [SerializeField] internal string GameTitle;
         [SerializeField] internal Sprite GameLogo;
-        [SerializeField] internal TimeSensitiveActivity[] TimeSensitiveActivities;
+        [SerializeField] internal TimeSensitiveActivityPref[] TimeSensitiveActivities;
     }
 }
