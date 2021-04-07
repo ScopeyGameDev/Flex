@@ -766,6 +766,18 @@ MonoBehaviour:
       TimeType: 1
       Battlepass: {x: 0, y: 0}
       Description: 
+    - ActivityTitle: 3 Wins in Control
+      ActivityType: 1
+      TimeLeft: 3
+      TimeType: 1
+      Battlepass: {x: 0, y: 0}
+      Description: 
+    - ActivityTitle: 250 Kills in Strikes Arc
+      ActivityType: 1
+      TimeLeft: 3
+      TimeType: 1
+      Battlepass: {x: 0, y: 0}
+      Description: 
   - GameTitle: Apex Legends
     GameLogo: {fileID: 0}
     TimeSensitiveActivities:
@@ -774,19 +786,19 @@ MonoBehaviour:
       TimeLeft: 3
       TimeType: 0
       Battlepass: {x: 0, y: 0}
-      Description: 
+      Description: Get 10 Kills As The Legend Pathfinder
     - ActivityTitle: Win 5 Times In Top 5
       ActivityType: 1
       TimeLeft: 2
       TimeType: 1
       Battlepass: {x: 0, y: 0}
-      Description: 
+      Description: Get Placed in Top 5, 5 Times this week
     - ActivityTitle: Mayhem Battlepass
       ActivityType: 2
       TimeLeft: 10
       TimeType: 1
       Battlepass: {x: 12, y: 50}
-      Description: 
+      Description: Season 8 Mayhem Battlepass
   TimeSensitiveGeneralParent: {fileID: 1773634213}
   TimeSensitiveGeneralTransform: {fileID: 651850851}
   TimeSensitiveGameParent: {fileID: 2000566108}

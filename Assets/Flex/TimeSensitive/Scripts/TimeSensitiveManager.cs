@@ -9,8 +9,10 @@ namespace Flex.TimeSensitive
 {
     public class TimeSensitiveManager : MonoBehaviour
     {
+        [Header("Managers")]
         [SerializeField] NavigationManager NavigationManager;
 
+        [Header("Time Sensitive Games")]
         [SerializeField] List<TimeSensitiveGame> TimeSensitiveGames;
 
         [Header("Time Sensitive General")]
@@ -23,6 +25,8 @@ namespace Flex.TimeSensitive
         [SerializeField] TimeSensitiveContent TimeSensitiveContent;
         [SerializeField] TMP_Text GameTitleText;
         [SerializeField] Image GameLogoImage;
+
+        [Header("Time Sensitive Activities")]
         [SerializeField] TimeSensitiveActivity EventActivity;
         [SerializeField] TimeSensitiveActivity DailyActivity;
         [SerializeField] TimeSensitiveActivity WeeklyActivity;
