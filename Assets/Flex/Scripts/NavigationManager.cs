@@ -11,7 +11,7 @@ namespace Flex.Navigation
 
     public class NavigationManager : MonoBehaviour
     {
-        [SerializeField] Button BackButton;
+        [SerializeField] Button TimeSensitiveBackButton;
 
         [Header("TopPanel")]
         [SerializeField] TMP_Text PageTitle;
@@ -48,7 +48,6 @@ namespace Flex.Navigation
         // Start is called before the first frame update
         void Start()
         {
-            BackButton.gameObject.SetActive(false);
             TimeSensitiveNavButton.onClick.AddListener(delegate {SwitchPage(PageType.TimeSensitive);} );
             AchievementsNavButton.onClick.AddListener(delegate {SwitchPage(PageType.Achievements);} );
             GuidesNavButton.onClick.AddListener(delegate {SwitchPage(PageType.Guides);} );
@@ -60,27 +59,56 @@ namespace Flex.Navigation
 
         internal void SetBackButton(UnityAction Event)
         {
-            BackButton.gameObject.SetActive(true);
-            BackButton.onClick.AddListener(Event);
-            BackButton.onClick.AddListener(delegate {BackButtonPressed();});
-        }
-
-        void AddEventToBackButton(UnityAction Event)
-        {
-            BackButton.onClick.AddListener(Event);
+            switch (SelectedPage)
+            {
+                case PageType.TimeSensitive:
+                    // TimeSensitiveBackButton.onClick.AddListener(Event);
+                    // TimeSensitiveBackButton.gameObject.SetActive(true);
+                    // TimeSensitiveBackButton.onClick.AddListener(delegate {BackButtonPressed();});
+                    break;
+                case PageType.Achievements:
+                    //AchievementsBackEvent.AddListener(Event);
+                    break;
+                case PageType.Guides:
+                    //GuidesBackEvent.AddListener(Event);
+                    break;
+                case PageType.GroupFinder:
+                    //GroupFinderBackEvent.AddListener(Event);
+                    break;
+                case PageType.Profile:
+                    //ProfileBackEvent.AddListener(Event);
+                    break; 
+            }
         }
 
         void BackButtonPressed()
         {
-            BackButton.onClick.Invoke();
-            BackButton.onClick.RemoveAllListeners();
-            BackButton.gameObject.SetActive(false);
+            switch (SelectedPage)
+            {
+                case PageType.TimeSensitive:
+                    // TimeSensitiveBackButton.onClick.Invoke();
+                    // TimeSensitiveBackButton.onClick.RemoveAllListeners();
+                    // TimeSensitiveBackButton.gameObject.SetActive(false);
+                    break;
+                case PageType.Achievements:
+                    
+                    break;
+                case PageType.Guides:
+                    
+                    break;
+                case PageType.GroupFinder:
+                    
+                    break;
+                case PageType.Profile:
+                    
+                    break;
+            }
+
+            //BackButton.gameObject.SetActive(false);
         }
 
         internal void SwitchPage(PageType NewPageType)
         {
-            // AddEventToBackButton(delegate {SwitchPage(SelectedPage);});
-
             switch (SelectedPage)
             {
                 case PageType.TimeSensitive:
@@ -93,7 +121,7 @@ namespace Flex.Navigation
                     break;
                 case PageType.Guides:
                     GuidesNavButtonBorder.sprite = ClosedBox;
-                    GuidesContentPanel.SetActive(false);
+                    GuidesContentPanel.SetActive(false);                  
                     break;
                 case PageType.GroupFinder:
                     GroupFinderNavButtonBorder.sprite = ClosedBox;

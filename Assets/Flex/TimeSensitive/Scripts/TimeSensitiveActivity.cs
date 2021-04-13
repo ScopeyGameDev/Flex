@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Flex.Games;
 
 namespace Flex.TimeSensitive
 {
@@ -18,7 +19,7 @@ namespace Flex.TimeSensitive
             StartingHeight = 150;
         }
 
-        internal void AddActivity(TimeSensitiveActivityPref TimeSensitiveActivityPref, bool First)
+        internal void AddActivity(TimeSensitiveActivities TimeSensitiveActivityPref, bool First)
         {
             TimeSensitiveContentActivity CreatedTimeSensitiveContentActivity = Instantiate(TimeSensitiveContentActivity, FillTransform);
             CreatedTimeSensitiveContentActivity.Create(TimeSensitiveActivityPref, true);

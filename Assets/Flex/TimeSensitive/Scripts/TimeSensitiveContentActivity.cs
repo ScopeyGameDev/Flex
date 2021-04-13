@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Flex.Games;
 
 namespace Flex.TimeSensitive
 {
     public class TimeSensitiveContentActivity : MonoBehaviour
     {
-        TimeSensitiveActivityPref TimeSensitiveActivity;
+        TimeSensitiveActivities TimeSensitiveActivity;
         [SerializeField] TMP_Text ActivityTitleText;
         [SerializeField] TMP_Text ActivityTimeLeftText;
         [SerializeField] GameObject BattlepassPanel;
         [SerializeField] Button ActivityButton;
 
-        internal void Create(TimeSensitiveActivityPref NewTimeSensitiveActivity, bool ShowAdditionalInformation)
+        internal void Create(TimeSensitiveActivities NewTimeSensitiveActivity, bool ShowAdditionalInformation)
         {
             TimeSensitiveActivity = NewTimeSensitiveActivity;
             ActivityTitleText.text = TimeSensitiveActivity.ActivityTitle;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Flex.Games;
 
 namespace Flex.TimeSensitive
 {
@@ -13,7 +14,7 @@ namespace Flex.TimeSensitive
         [SerializeField] TMP_Text TimeLeftText;
         [SerializeField] Button CloseButton;
         [SerializeField] GameObject BattlepassPanel;
-        TimeSensitiveActivityPref ActivityPref;
+        TimeSensitiveActivities ActivityPref;
 
         void Start()
         {
@@ -21,7 +22,7 @@ namespace Flex.TimeSensitive
             CloseButton.onClick.AddListener(delegate {Close();});
         }
 
-        internal void AssignActivity(TimeSensitiveActivityPref ActivityPrefToAssign)
+        internal void AssignActivity(TimeSensitiveActivities ActivityPrefToAssign)
         {
             ActivityPref = ActivityPrefToAssign;
             ActivityTitleText.text = ActivityPref.ActivityTitle;

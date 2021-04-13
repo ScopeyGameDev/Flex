@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Flex.Navigation;
+using Flex.Games;
 using TMPro;
 using UnityEngine.UI;
 
@@ -11,9 +12,7 @@ namespace Flex.TimeSensitive
     {
         [Header("Managers")]
         [SerializeField] NavigationManager NavigationManager;
-
-        [Header("Time Sensitive Games")]
-        [SerializeField] List<TimeSensitiveGame> TimeSensitiveGames;
+        [SerializeField] Games.Games Games;
 
         [Header("Time Sensitive General")]
         [SerializeField] Transform TimeSensitiveGeneralParent;
@@ -38,14 +37,14 @@ namespace Flex.TimeSensitive
             TimeSensitiveGeneralParent.gameObject.SetActive(true);
             TimeSensitiveGameParent.gameObject.SetActive(false);
             
-            foreach (TimeSensitiveGame Game in TimeSensitiveGames)
+            foreach (GameInfo Game in Games.GamesList)
             {
                 TimeSensitiveContent CreatedTimeSensitiveContent = Instantiate(TimeSensitiveContent, TimeSensitiveGeneralTransform);
                 CreatedTimeSensitiveContent.Create(Game, this);
             }
         }
 
-        internal void GameSelected(TimeSensitiveGame SelectedGame)
+        internal void GameSelected(GameInfo SelectedGame)
         {
             if (!EventActivity.gameObject.activeInHierarchy)
                 EventActivity.gameObject.SetActive(true);
@@ -64,12 +63,12 @@ namespace Flex.TimeSensitive
             TimeSensitiveGeneralParent.gameObject.SetActive(false);
             TimeSensitiveGameParent.gameObject.SetActive(true);
             NavigationManager.SetBackButton(delegate {ShowGames();});
-            GameTitleText.text = SelectedGame.GameTitle;
+            GameTitleText.text = SelectedGame.GameName;
             GameLogoImage.sprite = SelectedGame.GameLogo;      
 
             int Events = 0, Dailies = 0, Weeklies = 0, Battlepass = 0;
 
-            foreach (TimeSensitiveActivityPref Activity in SelectedGame.TimeSensitiveActivities)
+            foreach (TimeSensitiveActivities Activity in SelectedGame.TimeSensitiveActivities)
             {
                 switch (Activity.ActivityType)
                 {
@@ -108,7 +107,7 @@ namespace Flex.TimeSensitive
             TimeSensitiveGameParent.gameObject.SetActive(false);
         }
 
-        internal void ShowActivityInformation(TimeSensitiveActivityPref ActivityPref)
+        internal void ShowActivityInformation(TimeSensitiveActivities ActivityPref)
         {
             TimeSensitiveActivityInformation.AssignActivity(ActivityPref);
         }

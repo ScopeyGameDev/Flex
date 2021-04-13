@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Flex.Games;
 
 namespace Flex.TimeSensitive
 {
     public class TimeSensitiveContent : MonoBehaviour
     {
         TimeSensitiveManager TimeSensitiveManager;
-        TimeSensitiveGame TimeSensitiveGame;
+        GameInfo GameInfo;
         [SerializeField] Transform ContentTransform;
         [SerializeField] TimeSensitiveContentActivity TimeSensitiveContentActivity;
 
@@ -20,23 +21,23 @@ namespace Flex.TimeSensitive
 
         void Start() 
         {
-            GameButton.onClick.AddListener(delegate {TimeSensitiveManager.GameSelected(TimeSensitiveGame);});
+            GameButton.onClick.AddListener(delegate {TimeSensitiveManager.GameSelected(GameInfo);});
         }
 
-        internal void Create(TimeSensitiveGame NewTimeSensitiveGame, TimeSensitiveManager NewTimeSensitiveManager)
+        internal void Create(GameInfo NewGameInfo, TimeSensitiveManager NewTimeSensitiveManager)
         {
             TimeSensitiveManager = NewTimeSensitiveManager;
-            TimeSensitiveGame = NewTimeSensitiveGame;
-            GameLogoImage.sprite = TimeSensitiveGame.GameLogo;
-            GameTitleText.text = TimeSensitiveGame.GameTitle;
+            GameInfo = NewGameInfo;
+            GameLogoImage.sprite = GameInfo.GameLogo;
+            GameTitleText.text = GameInfo.GameName;
 
-            foreach(TimeSensitiveActivityPref Activity in TimeSensitiveGame.TimeSensitiveActivities)
+            foreach(TimeSensitiveActivities Activity in GameInfo.TimeSensitiveActivities)
             {
                 CreateActivity(Activity);
             }
         }
 
-        void CreateActivity(TimeSensitiveActivityPref Activity)
+        void CreateActivity(TimeSensitiveActivities Activity)
         {
             TimeSensitiveContentActivity CreatedTimeSensitiveActivity = Instantiate(TimeSensitiveContentActivity, ContentTransform);
             CreatedTimeSensitiveActivity.Create(Activity, false);
