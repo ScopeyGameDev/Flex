@@ -9,14 +9,17 @@ namespace Flex.Achievements
 {
     public class AchievementsGame : MonoBehaviour
     {
+        [SerializeField] AchievementsManager AchievementsManager;
+
         [SerializeField] TMP_Text GameTitleText;
         [SerializeField] Image GameLogoImage;
         [SerializeField] TMP_Text AchievementsProgressText;
 
         GameInfo GameInfo;
 
-        internal void Create(GameInfo NewGameInfo)
+        internal void Create(GameInfo NewGameInfo, AchievementsManager NewAchievementsManager)
         {
+            AchievementsManager = NewAchievementsManager;
             GameInfo = NewGameInfo;
             GameTitleText.text = GameInfo.GameName;
             GameLogoImage.sprite = GameInfo.GameLogo;
@@ -28,6 +31,8 @@ namespace Flex.Achievements
                     AchievementsDone++;
             }
             AchievementsProgressText.text = AchievementsDone + "/" + GameInfo.Achievements.Count;
-        }        
+
+            GetComponent<Button>().onClick.AddListener(delegate { AchievementsManager.ShowAchievements(GameInfo); });
+        }
     }
 }

@@ -19,7 +19,11 @@ namespace Flex.Games
     internal class Achievements
     {
         [SerializeField] internal string AchievementName;
+        [SerializeField] internal Sprite AchievementLogo;
+        [SerializeField] internal float AchievementProgress;
+        [SerializeField] internal string AchievementShortDescription;
         [SerializeField] internal bool AchievementDone;
+        [SerializeField] internal bool Missable;
     }
 
     [System.Serializable]

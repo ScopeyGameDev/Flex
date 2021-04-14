@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Flex.Navigation;
+using Flex.Games;
+using TMPro;
+using UnityEngine.UI;
 
 namespace Flex.Achievements
 {
@@ -16,16 +19,45 @@ namespace Flex.Achievements
         [SerializeField] Transform AchievementsGeneralTransform;
         [SerializeField] AchievementsGame AchievementsGame;
 
+        [Header("Achievements Game")]
+        [SerializeField] Transform AchievementsGameParent;
+        [SerializeField] Transform AchievementsGameTransform;
+        [SerializeField] AchievementsGameAchievements AchievementsGameAchievements;
+        [SerializeField] Image GameLogo;
+        [SerializeField] TMP_Text GameTitleText;
+
+
         void Start()
         {
-            foreach (Games.GameInfo Game in Games.GamesList)
+            foreach (GameInfo Game in Games.GamesList)
             {
                 if (Game.Achievements.Count > 0)
                 {
                     AchievementsGame CreatedAchievementsGame = Instantiate(AchievementsGame, AchievementsGeneralTransform);
-                    CreatedAchievementsGame.Create(Game);
+                    CreatedAchievementsGame.Create(Game, this);
                 }
             }
+        }
+
+        internal void ShowAchievements(GameInfo Game)
+		{
+            AchievementsGeneralParent.gameObject.SetActive(false);
+            AchievementsGameParent.gameObject.SetActive(true);
+
+            GameLogo.sprite = Game.GameLogo;
+            GameTitleText.text = Game.GameName;
+            
+            foreach (Games.Achievements Achievement in Game.Achievements)
+			{
+                AchievementsGameAchievements CreatedAchievementsGameAchievements = Instantiate(AchievementsGameAchievements, AchievementsGameTransform);
+                CreatedAchievementsGameAchievements.Create(Achievement);
+			}
+		}
+
+        internal void ShowGames()
+		{
+            AchievementsGameParent.gameObject.SetActive(false);
+            AchievementsGeneralParent.gameObject.SetActive(true);
         }
     }
 }
