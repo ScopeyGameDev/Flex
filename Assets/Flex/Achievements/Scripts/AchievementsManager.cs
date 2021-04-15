@@ -49,8 +49,11 @@ namespace Flex.Achievements
             
             foreach (Games.Achievements Achievement in Game.Achievements)
 			{
-                AchievementsGameAchievements CreatedAchievementsGameAchievements = Instantiate(AchievementsGameAchievements, AchievementsGameTransform);
-                CreatedAchievementsGameAchievements.Create(Achievement);
+                if (!Achievement.AchievementDone)
+				{
+                    AchievementsGameAchievements CreatedAchievementsGameAchievements = Instantiate(AchievementsGameAchievements, AchievementsGameTransform);
+                    CreatedAchievementsGameAchievements.Create(Achievement);
+                }                
 			}
 		}
 
