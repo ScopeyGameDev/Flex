@@ -73,6 +73,12 @@ namespace Flex.Navigation
 
         internal void SetBackButton(UnityAction Event)
         {
+            StartCoroutine(SetBackButtonEnum(Event));
+        }
+
+        IEnumerator SetBackButtonEnum(UnityAction Event)
+		{
+            yield return new WaitForEndOfFrame();
             switch (SelectedPage)
             {
                 case PageType.TimeSensitive:
@@ -147,21 +153,25 @@ namespace Flex.Navigation
                 case PageType.TimeSensitive:
                     TimeSensitiveNavButtonBorder.sprite = ClosedBox;
                     TimeSensitiveContentPanel.SetActive(false);
+                    TimeSensitiveNavButton.gameObject.GetComponent<Image>().enabled = true;
                     TimeSensitiveBackButton.gameObject.SetActive(false);
                     break;
                 case PageType.Achievements:
                     AchievementsNavButtonBorder.sprite = ClosedBox;
                     AchievementsContentPanel.SetActive(false);
+                    AchievementsNavButton.gameObject.GetComponent<Image>().enabled = true;
                     AchievementsBackButton.gameObject.SetActive(false);
                     break;
                 case PageType.Guides:
                     GuidesNavButtonBorder.sprite = ClosedBox;
-                    GuidesContentPanel.SetActive(false);           
+                    GuidesContentPanel.SetActive(false);
+                    GuidesNavButton.gameObject.GetComponent<Image>().enabled = true;
                     GuidesBackButton.gameObject.SetActive(false);
                     break;
                 case PageType.GroupFinder:
                     GroupFinderNavButtonBorder.sprite = ClosedBox;
                     GroupFinderContentPanel.SetActive(false);
+                    GroupFinderNavButton.gameObject.GetComponent<Image>().enabled = true;
                     GroupFinderBackButton.gameObject.SetActive(false);
                     break;
                 case PageType.Profile:
@@ -173,9 +183,10 @@ namespace Flex.Navigation
             switch (NewPageType)
             {
                 case PageType.TimeSensitive:
-                    PageTitle.text = "Time Sensitive";
+                    PageTitle.text = "Events";
                     TimeSensitiveNavButtonBorder.sprite = OpenBox;
                     TimeSensitiveContentPanel.SetActive(true);
+                    TimeSensitiveNavButton.gameObject.GetComponent<Image>().enabled = false;
 
                     if (EventAttachedToTimeSensitiveButton)
                         TimeSensitiveBackButton.gameObject.SetActive(true);
@@ -184,6 +195,7 @@ namespace Flex.Navigation
                     PageTitle.text = "Achievements";
                     AchievementsNavButtonBorder.sprite = OpenBox;
                     AchievementsContentPanel.SetActive(true);
+                    AchievementsNavButton.gameObject.GetComponent<Image>().enabled = false;
 
                     if (EventAttachedToAchievementsButton)
                         AchievementsBackButton.gameObject.SetActive(true);
@@ -192,6 +204,7 @@ namespace Flex.Navigation
                     PageTitle.text = "Guides";
                     GuidesNavButtonBorder.sprite = OpenBox;
                     GuidesContentPanel.SetActive(true);
+                    GuidesNavButton.gameObject.GetComponent<Image>().enabled = false;
 
                     if (EventAttachedToGuidesButton)
                         GuidesBackButton.gameObject.SetActive(true);
@@ -200,6 +213,7 @@ namespace Flex.Navigation
                     PageTitle.text = "GroupFinder";
                     GroupFinderNavButtonBorder.sprite = OpenBox;
                     GroupFinderContentPanel.SetActive(true);
+                    GroupFinderNavButton.gameObject.GetComponent<Image>().enabled = false;
 
                     if (EventAttachedToGroupFinderButton)
                         GroupFinderBackButton.gameObject.SetActive(true);

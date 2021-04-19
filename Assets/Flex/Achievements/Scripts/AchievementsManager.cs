@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Flex.Navigation;
 using Flex.Games;
+using Flex.Guides;
 using TMPro;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ namespace Flex.Achievements
         [SerializeField] Transform AchievementsGeneralParent;
         [SerializeField] Transform AchievementsGeneralTransform;
         [SerializeField] AchievementsGame AchievementsGame;
+        GameInfo CurrentGame;
 
         [Header("Achievements Game")]
         [SerializeField] Transform AchievementsGameParent;
@@ -26,6 +28,14 @@ namespace Flex.Achievements
         [SerializeField] Image GameLogo;
         [SerializeField] TMP_Text GameTitleText;
 
+        [Header("Achievements Game Achievements")]
+        [SerializeField] Transform AchievementsGameAchievementsParent;
+        [SerializeField] Transform AchievementsGameAchievementsTransform;
+        [SerializeField] Image AchievementLogo;
+        [SerializeField] TMP_Text AchievementNameText;
+        [SerializeField] TMP_Text AchievementsDescriptionText;
+        [SerializeField] GameObject Missable;
+        [SerializeField] GuidesInfo GuidesInfo;
 
         void Start()
         {
@@ -41,7 +51,10 @@ namespace Flex.Achievements
 
         internal void ShowAchievements(GameInfo Game)
 		{
+            NavigationManager.SetBackButton(ShowGames);
+            CurrentGame = Game;
             AchievementsGeneralParent.gameObject.SetActive(false);
+            AchievementsGameAchievementsParent.gameObject.SetActive(false);
             AchievementsGameParent.gameObject.SetActive(true);
 
             GameLogo.sprite = Game.GameLogo;
@@ -52,15 +65,39 @@ namespace Flex.Achievements
                 if (!Achievement.AchievementDone)
 				{
                     AchievementsGameAchievements CreatedAchievementsGameAchievements = Instantiate(AchievementsGameAchievements, AchievementsGameTransform);
-                    CreatedAchievementsGameAchievements.Create(Achievement);
-                }                
+                    CreatedAchievementsGameAchievements.Create(Achievement, this);
+                }
 			}
+		}
+
+        internal void ShowAchievementsInfo(Games.Achievements Achievement)
+		{
+            NavigationManager.SetBackButton(delegate { ShowAchievements(CurrentGame); });
+            AchievementsGameParent.gameObject.SetActive(false);
+            AchievementsGameAchievementsParent.gameObject.SetActive(true);
+
+            AchievementLogo.sprite = Achievement.AchievementLogo;
+            AchievementNameText.text = Achievement.AchievementName;
+            AchievementsDescriptionText.text = Achievement.AchievementShortDescription;
+            Missable.SetActive(Achievement.Missable);
+
+            foreach (Games.Guides Guide in Achievement.Guides)
+			{
+                GuidesInfo CreatedGuide = Instantiate(GuidesInfo, AchievementsGameAchievementsTransform);
+                CreatedGuide.Create(Guide, this);
+			}
+		}
+
+        internal void ShowGuideInfo(Games.Guides Guide)
+		{
+
 		}
 
         internal void ShowGames()
 		{
             AchievementsGameParent.gameObject.SetActive(false);
             AchievementsGeneralParent.gameObject.SetActive(true);
+            AchievementsGameAchievementsParent.gameObject.SetActive(false);
         }
     }
 }

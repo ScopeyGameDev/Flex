@@ -24,12 +24,18 @@ namespace Flex.Games
         [SerializeField] internal string AchievementShortDescription;
         [SerializeField] internal bool AchievementDone;
         [SerializeField] internal bool Missable;
+        [SerializeField] internal List<Guides> Guides;
     }
+
+    enum GuideType { Game, Achievement };
 
     [System.Serializable]
     internal class Guides
     {
-        
+        [SerializeField] internal GuideType GuideType;
+        [SerializeField] internal string GuideTitle;
+        [SerializeField] internal string GuideDescription;
+        [SerializeField] internal string GuideAuthor;
     }
 
     [System.Serializable]

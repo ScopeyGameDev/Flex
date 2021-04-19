@@ -16,7 +16,7 @@ namespace Flex.Achievements
         [SerializeField] TMP_Text AchievementProgressText;
         [SerializeField] GameObject MissableImage;
 
-        internal void Create(Games.Achievements NewAchievement)
+        internal void Create(Games.Achievements NewAchievement, AchievementsManager AchievementsManager)
 		{
             Achievement = NewAchievement;
             AchievementLogoImage.sprite = Achievement.AchievementLogo;
@@ -24,6 +24,8 @@ namespace Flex.Achievements
             AchievementShortDescriptionText.text = Achievement.AchievementShortDescription;
             AchievementProgressText.text = Mathf.RoundToInt(Achievement.AchievementProgress) + "%";
             MissableImage.SetActive(Achievement.Missable);
-		}
+
+            GetComponent<Button>().onClick.AddListener(delegate { AchievementsManager.ShowAchievementsInfo(Achievement); });
+        }
     }
 }

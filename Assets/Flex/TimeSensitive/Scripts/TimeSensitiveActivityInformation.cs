@@ -15,6 +15,7 @@ namespace Flex.TimeSensitive
         [SerializeField] Button CloseButton;
         [SerializeField] GameObject BattlepassPanel;
         TimeSensitiveActivities ActivityPref;
+        List<GameObject> Sections = new List<GameObject>();
 
         void Start()
         {
@@ -53,17 +54,29 @@ namespace Flex.TimeSensitive
                     break;
             }
             TimeLeftText.text = ActivityPref.TimeLeft + TimeTypeText;
-            
-            if(ActivityPref.ActivityType == ActivityType.Battlepass)
+
+            gameObject.SetActive(true);
+
+            if (ActivityPref.ActivityType == ActivityType.Battlepass)
             {
-                //ActivityTitleText.text = ActivityPref.ActivityTitle + " " + ActivityPref.Battlepass.x + "/" + ActivityPref.Battlepass.y;
-                
-                // RectTransform Rect = GetComponent<RectTransform>();
-                // Rect.sizeDelta = new Vector2(Rect.rect.width, 145);
-                BattlepassPanel.SetActive(true);
+				ActivityTitleText.text = ActivityPref.ActivityTitle + " " + ActivityPref.Battlepass.x + "/" + ActivityPref.Battlepass.y;
+
+				// RectTransform Rect = GetComponent<RectTransform>();
+				// Rect.sizeDelta = new Vector2(Rect.rect.width, 145);
+				BattlepassPanel.SetActive(true);
+                if (Sections.Count > 0)
+				{
+                    foreach (GameObject Section in Sections)
+					{
+                        Destroy(Section);
+					}
+                    Sections.Clear();
+				}
+
                 for (int i = 0; i < ActivityPref.Battlepass.y; i++)
                 {
                     GameObject Section = new GameObject();
+                    Sections.Add(Section);
                     Section.transform.SetParent(BattlepassPanel.transform);
                     Image SectionImage = Section.AddComponent<Image>();
                     if (i < ActivityPref.Battlepass.x)
@@ -72,8 +85,11 @@ namespace Flex.TimeSensitive
                         SectionImage.color = Color.red;
                 }
             }
-
-            gameObject.SetActive(true);
+            else
+			{
+                if (BattlepassPanel.activeInHierarchy)
+                    BattlepassPanel.SetActive(false);
+			}
         }
 
         void Close()
