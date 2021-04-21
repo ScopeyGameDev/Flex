@@ -14,13 +14,11 @@ namespace Flex.Guides
         [SerializeField] internal TMP_Text GuideDescriptionText;
         [SerializeField] internal TMP_Text AuthorText;
 
-        internal void Create(Games.Guides Guide, AchievementsManager AchievementsManager)
+        internal void Create(Games.Guides Guide)
         {
             GuideTitleText.text = Guide.GuideTitle;
             GuideDescriptionText.text = Guide.GuideDescription;
             AuthorText.text = Guide.GuideAuthor;
-
-            GetComponent<Button>().onClick.AddListener(delegate { AchievementsManager.ShowGuideInfo(Guide); });
         }
     }
 }

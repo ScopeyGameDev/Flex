@@ -84,7 +84,7 @@ namespace Flex.Achievements
             foreach (Games.Guides Guide in Achievement.Guides)
 			{
                 GuidesInfo CreatedGuide = Instantiate(GuidesInfo, AchievementsGameAchievementsTransform);
-                CreatedGuide.Create(Guide, this);
+                CreatedGuide.Create(Guide);
 			}
 		}
 
