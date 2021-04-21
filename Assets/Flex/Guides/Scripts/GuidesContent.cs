@@ -11,7 +11,7 @@ namespace Flex.Guides
 
 		internal void Create(Games.Guides Guide, GuidesManager GuidesManager)
 		{
-
+			GuideTitle.text = Guide.GuideTitle;
 		}
 	}
 }

@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameLogo: {fileID: 869966839985557256}
   GameTitleText: {fileID: 8925064230923969256}
-  GuidesPanel: {fileID: 731562973336870530}
+  GuidesPanel: {fileID: 7893217319118985633}
   GuidesContent: {fileID: 3936262162082041942, guid: 7ef7a3d6bdca85041a9d5068b026fa39,
     type: 3}
 --- !u!1 &2729795754189958496

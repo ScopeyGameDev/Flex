@@ -18,12 +18,14 @@ namespace Flex.Guides
         {
             GameLogo.sprite = GameInfo.GameLogo;
             GameTitleText.text = GameInfo.GameName;
+            GetComponent<Button>().onClick.AddListener(delegate { GuidesManager.ShowGuides(GameInfo); });
 
             foreach (Games.Guides Guide in Guides)
 			{
                 GuidesContent CreatedGuidesContent = Instantiate(GuidesContent, GuidesPanel);
                 CreatedGuidesContent.Create(Guide, GuidesManager);
-                GuidesPanel.sizeDelta = new Vector2(GuidesPanel.rect.width, GuidesPanel.rect.height + 90);
+                RectTransform Rect = GetComponent<RectTransform>();
+                Rect.sizeDelta = new Vector2(Rect.rect.width, Rect.rect.height + 90);
 			}
         }
     }
