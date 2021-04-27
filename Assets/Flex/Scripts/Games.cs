@@ -39,15 +39,26 @@ namespace Flex.Games
     }
 
     [System.Serializable]
+    internal class GroupFinderRegion
+	{
+        [SerializeField] internal string Region;
+	}
+
+    enum RegionsENUM { AM, EU, OCE };
+
+    [System.Serializable]
     internal class GroupFinder
     {
-        
+        [SerializeField] internal string Activity;
+        [SerializeField] internal string ActivityShortend;
+        [SerializeField] internal List<RegionsENUM> Regions = new List<RegionsENUM>(3);
     }
 
     [System.Serializable]
     internal class GameInfo
     {
         [SerializeField] internal string GameName;
+        [SerializeField] internal string GameNameShortend;
         [SerializeField] internal Sprite GameLogo;
         [SerializeField] internal List<TimeSensitiveActivities> TimeSensitiveActivities;
         [SerializeField] internal List<Achievements> Achievements;
