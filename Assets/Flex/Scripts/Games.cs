@@ -51,6 +51,7 @@ namespace Flex.Games
     {
         [SerializeField] internal string Activity;
         [SerializeField] internal string ActivityShortend;
+        [SerializeField] internal string ActivityDescription;
         [SerializeField] internal List<RegionsENUM> Regions = new List<RegionsENUM>(3);
     }
 

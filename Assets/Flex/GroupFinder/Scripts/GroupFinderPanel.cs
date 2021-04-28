@@ -13,15 +13,18 @@ namespace Flex.GroupFinder
 		[SerializeField] GameObject SelectionPanel;
 		[SerializeField] TMP_Text SelectionText;
 
-		internal void Assign(UnityAction Event)
+		internal void Assign(UnityAction Event, string SelectionName)
 		{
 			GroupFinderButton.onClick.RemoveAllListeners();
 			GroupFinderButton.onClick.AddListener(Event);
+			GroupFinderButton.onClick.AddListener(UnAssign);
+			SelectionText.text = SelectionName;
 		}
 
 		internal void UnAssign()
 		{
 			GroupFinderButton.onClick.RemoveAllListeners();
+			SelectionText.text = "";
 		}
 	}
 }

@@ -17,44 +17,86 @@ namespace Flex.GroupFinder
 		[SerializeField] GroupFinderPanel ActivityPanel;
 		[SerializeField] GroupFinderPanel RegionPanel;
 
+		[SerializeField] GroupFinderChoice GroupFinderChoice;
+		[SerializeField] Transform ContentTransform;
+
+		List<GroupFinderChoice> CreatedGroupFinderChoices = new List<GroupFinderChoice>();
+
+		[SerializeField] GroupFinderJoin JoinPanel;
+
 		void Start()
 		{
+			JoinPanel.gameObject.SetActive(false);
 			GameSelection();
 		}
 
 		void GameSelection()
 		{
-			GamePanel.Assign(GameSelection);
-
+			ClearChoices();
 			foreach (GameInfo Game in Games.GamesList)
 			{
 				if (Game.GroupFinder.Count > 0)
 				{
-					// Game.GameName
-					// Create List for Game
+					GroupFinderChoice CreatedGroupFinderChoice = Instantiate(GroupFinderChoice, ContentTransform);
+					CreatedGroupFinderChoice.CreateGameChoice(Game, this);
+					CreatedGroupFinderChoices.Add(CreatedGroupFinderChoice);
 				}
 			}
 		}
 
 		void ActivitySelection()
 		{
-			ActivityPanel.Assign(ActivitySelection);
-
-			foreach (Games.GroupFinder Activity in SelectedGame.GroupFinder)
+			ClearChoices();
+			for (int i = 0; i < SelectedGame.GroupFinder.Count; i++)
 			{
-				// Activity.Activity;
-				// Create List for Activities
+				GroupFinderChoice CreatedGroupFinderChoice = Instantiate(GroupFinderChoice, ContentTransform);
+				CreatedGroupFinderChoice.CreateActivityChoice(SelectedGame.GroupFinder[i].Activity, i, this);
+				CreatedGroupFinderChoices.Add(CreatedGroupFinderChoice);
 			}
 		}
 
 		void RegionSelection()
 		{
-			RegionPanel.Assign(RegionSelection);
-
-			foreach (RegionsENUM Region in SelectedGame.GroupFinder[ActivityNum].Regions)
+			ClearChoices();
+			for (int i = 0; i < SelectedGame.GroupFinder[ActivityNum].Regions.Count; i++)
 			{
-				// Create List for Regions
+				GroupFinderChoice CreatedGroupFinderChoice = Instantiate(GroupFinderChoice, ContentTransform);
+				CreatedGroupFinderChoice.CreateRegionChoice(SelectedGame.GroupFinder[ActivityNum].Regions[i].ToString(), i, this);
+				CreatedGroupFinderChoices.Add(CreatedGroupFinderChoice);
 			}
+		}
+
+		void ClearChoices()
+		{
+			foreach (GroupFinderChoice item in CreatedGroupFinderChoices)
+			{
+				Destroy(item.gameObject);
+			}
+			CreatedGroupFinderChoices.Clear();
+		}
+
+		internal void SelectGame(GameInfo SelectGame)
+		{
+			SelectedGame = SelectGame;
+			GamePanel.Assign(GameSelection, SelectedGame.GameNameShortend);
+			ActivitySelection();
+		}
+
+		internal void SelectActivity(int Num)
+		{
+			ActivityNum = Num;
+			ActivityPanel.Assign(ActivitySelection, SelectedGame.GroupFinder[ActivityNum].ActivityShortend);
+			RegionSelection();
+		}
+
+		internal void SelectRegion(int Num)
+		{
+			RegionNum = Num;
+			string RegionString = SelectedGame.GroupFinder[ActivityNum].Regions[RegionNum].ToString();
+			RegionPanel.Assign(RegionSelection, RegionString);
+
+			JoinPanel.gameObject.SetActive(true);
+			JoinPanel.Assign(SelectedGame.GroupFinder[ActivityNum].Activity, SelectedGame.GroupFinder[ActivityNum].ActivityDescription);
 		}
 	}
 }
